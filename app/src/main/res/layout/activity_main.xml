@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:clickable="true"
+        android:onClick="addView"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="添加条目"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.wkp.sticklayout_lib.widget.StickLayout
+        android:id="@+id/sl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:onClick="click"
+            android:id="@+id/tv1"
+            android:text="第1行"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <LinearLayout
+            app:wkp_stick="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:background="@android:color/holo_green_light"
+                android:text="NUM1"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:background="@android:color/holo_blue_light"
+                android:text="NUM2"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:background="@android:color/holo_red_light"
+                android:text="NUM3"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:background="@android:color/holo_orange_light"
+                android:text="NUM4"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:text="第2行"
+            android:background="@android:color/holo_blue_light"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv3"
+            app:wkp_stick="true"
+            android:text="第3行"
+            android:background="@android:color/holo_green_light"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv4"
+            android:text="第4行"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv5"
+            android:text="第5行"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv6"
+            android:text="第6行"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/tv7"
+            android:text="第7行"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+    </com.wkp.sticklayout_lib.widget.StickLayout>
+
+</LinearLayout>
