@@ -16,14 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        <!--app:wkp_canScrollToEndViewTop="true"-->
     <com.wkp.sticklayout_lib.widget.StickLayout
+        app:wkp_canScrollToEndViewTop="true"
         android:id="@+id/sl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:onClick="click"
             android:id="@+id/tv1"
             android:text="第1行"
             android:gravity="center"
@@ -37,7 +36,7 @@
             android:layout_height="40dp">
 
             <TextView
-                android:onClick="scrollTo"
+                android:onClick="scrollTo2"
                 android:background="@android:color/holo_blue_light"
                 android:text="NUM2"
                 android:gravity="center"

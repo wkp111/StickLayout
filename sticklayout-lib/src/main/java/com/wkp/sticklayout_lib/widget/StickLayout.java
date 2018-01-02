@@ -87,13 +87,14 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
          * Called when the scroll position of a view changes.
          *
          * @param v          The view whose scroll position has changed.
+         * @param currentView 当前子控件
+         * @param position    当前子控件索引
          * @param scrollX    Current horizontal scroll origin.
          * @param scrollY    Current vertical scroll origin.
          * @param oldScrollX Previous horizontal scroll origin.
          * @param oldScrollY Previous vertical scroll origin.
          */
-        void onScrollChange(StickLayout v, int scrollX, int scrollY,
-                            int oldScrollX, int oldScrollY);
+        void onScrollChange(StickLayout v, View currentView, int position, int scrollX, int scrollY, int oldScrollX, int oldScrollY);
     }
 
     private long mLastScroll;
@@ -667,7 +668,50 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
             }
         }
         if (mOnScrollChangeListener != null) {
-            mOnScrollChangeListener.onScrollChange(this, l, t, oldl, oldt);
+            View currentView = null;
+            int position = -1;
+            if (mViewPair == null) {
+                for (int i = 0; i < getChildCounter(); i++) {
+                    View view = getChildIndex(i);
+                    int top = view.getTop();
+                    int bottom = view.getBottom();
+                    if (t >= top && t < bottom) {
+                        currentView = view;
+                        position = i;
+                        break;
+                    }
+                }
+            }else {
+                if (t < mCrisisHeight) {
+                    for (int i = 0; i < getChildCounter(); i++) {
+                        View view = getChildIndex(i);
+                        int top = view.getTop();
+                        int bottom = view.getBottom();
+                        if (t >= top && t < bottom) {
+                            currentView = view;
+                            position = i;
+                            break;
+                        }
+                    }
+                }else {
+                    View first = mViewPair.first;
+                    int index = indexOfChild(first);
+                    for (int i = 0; i < getChildCounter(); i++) {
+                        if (i == index) {
+                            continue;
+                        }
+                        View view = getChildIndex(i);
+                        int top = view.getTop() - first.getHeight();
+                        int bottom = view.getBottom() - first.getHeight();
+                        if (t >= top && t < bottom) {
+                            currentView = view;
+                            position = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            mOnScrollChangeListener.onScrollChange(this,currentView,position, l, t, oldl, oldt);
         }
     }
 
