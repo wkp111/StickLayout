@@ -2,7 +2,7 @@
 粘性控件，其任意一个子控件都可滑动停留，无论是View，还是ViewGroup；用该控件可以轻松实现支付宝"全部应用"界面。
 ## 演示图
 ![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout.gif "演示图")
-![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout1.gif "演示图1")
+![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout1.gif "演示图1")<br/>
 Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有。
 ## Gradle集成
 ```groovy
