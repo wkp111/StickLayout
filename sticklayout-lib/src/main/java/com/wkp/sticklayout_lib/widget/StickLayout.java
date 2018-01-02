@@ -205,6 +205,10 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
         a.recycle();
 
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickLayout);
+        mScrollToEnd = typedArray.getBoolean(R.styleable.StickLayout_wkp_canScrollToEndViewTop, false);
+        typedArray.recycle();
+
         mParentHelper = new NestedScrollingParentHelper(this);
         mChildHelper = new NestedScrollingChildHelper(this);
 

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mTv7 = findViewById(R.id.tv7);
 //        mSl.setStickView(findViewById(R.id.tv2));
 //        mSl.setStickView(findViewById(R.id.tv3));
-        mSl.canScrollToEndViewTop(true);
+//        mSl.canScrollToEndViewTop(true);
     }
 
     public void addView(View view) {

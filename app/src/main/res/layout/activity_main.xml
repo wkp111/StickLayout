@@ -18,6 +18,7 @@
 
     <com.wkp.sticklayout_lib.widget.StickLayout
         android:id="@+id/sl"
+        app:wkp_canScrollToEndViewTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -37,7 +38,7 @@
 
             <TextView
                 android:onClick="scrollTo"
-                android:background="@android:color/holo_green_light"
+                android:background="@android:color/holo_blue_light"
                 android:text="NUM2"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -46,7 +47,7 @@
 
             <TextView
                 android:onClick="scrollTo3"
-                android:background="@android:color/holo_blue_light"
+                android:background="@android:color/holo_green_light"
                 android:text="NUM3"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -91,6 +92,7 @@
             android:layout_height="200dp"/>
 
         <TextView
+            android:background="@android:color/holo_red_light"
             android:id="@+id/tv4"
             android:text="第4行"
             android:gravity="center"
