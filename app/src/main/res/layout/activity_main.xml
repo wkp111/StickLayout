@@ -36,15 +36,8 @@
             android:layout_height="40dp">
 
             <TextView
+                android:onClick="scrollTo"
                 android:background="@android:color/holo_green_light"
-                android:text="NUM1"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:background="@android:color/holo_blue_light"
                 android:text="NUM2"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -52,7 +45,8 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:background="@android:color/holo_red_light"
+                android:onClick="scrollTo3"
+                android:background="@android:color/holo_blue_light"
                 android:text="NUM3"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -60,8 +54,18 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:background="@android:color/holo_orange_light"
+                android:onClick="scrollTo4"
+                android:background="@android:color/holo_red_light"
                 android:text="NUM4"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:onClick="scrollTo7"
+                android:background="@android:color/holo_orange_light"
+                android:text="NUM7"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -108,6 +112,7 @@
             android:layout_height="200dp"/>
 
         <TextView
+            android:background="@android:color/holo_orange_light"
             android:id="@+id/tv7"
             android:text="第7行"
             android:gravity="center"

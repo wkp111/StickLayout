@@ -41,18 +41,21 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
 import android.widget.ScrollView;
+
 import com.wkp.sticklayout_lib.R;
+
 import java.util.List;
+
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Created by wkp on 2017/12/28.
  * <p>
- *     自定义控件{@link StickLayout}为整体滑动局部停留控件，只要给其任意一个直接子控件(若设置了多个直接子控件将取索引靠前的控件)设置属性{@code wkp_stick="true"}，
- *     则该子控件滑动到顶部时将停留，等待下滑到连接处自动随滑。该控件本质上就是{@link android.support.v4.widget.NestedScrollView}和{@link LinearLayout}的结合，
- *     子控件固定竖直方向排列，其他用法完全可当做{@link android.support.v4.widget.NestedScrollView}使用；但有两个方法需要注意{@link #getChildCounter()}和
- *     {@link #getChildIndex(int)}，这两个才是有用的，区分{@link #getChildCount()}和{@link #getChildAt(int)}两个方法，最后，我们也可以使用代码灵活的设置停留
- *     子控件，使用方法{@link #setStickView(View)}.
+ * 自定义控件{@link StickLayout}为整体滑动局部停留控件，只要给其任意一个直接子控件(若设置了多个直接子控件将取索引靠前的控件)设置属性{@code wkp_stick="true"}，
+ * 则该子控件滑动到顶部时将停留，等待下滑到连接处自动随滑。该控件本质上就是{@link android.support.v4.widget.NestedScrollView}和{@link LinearLayout}的结合，
+ * 子控件固定竖直方向排列，其他用法完全可当做{@link android.support.v4.widget.NestedScrollView}使用；但有两个方法需要注意{@link #getChildCounter()}和
+ * {@link #getChildIndex(int)}，这两个才是有用的，区分{@link #getChildCount()}和{@link #getChildAt(int)}两个方法，最后，我们也可以使用代码灵活的设置停留
+ * 子控件，使用方法{@link #setStickView(View)}.
  * </p>
  *
  * @attr ref R.styleable#StickLayout_Layout_wkp_stick
@@ -69,6 +72,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     private int mCrisisHeight;
     private SparseArray<LayoutParams> mLayoutParamsArray = new SparseArray<>();
     private int mChildCount;
+    private boolean mScrollToEnd;
 
     /**
      * Interface definition for a callback to be invoked when the scroll
@@ -400,6 +404,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
     /**
      * 初始化包裹父控件
+     *
      * @param context
      */
     private void initFirstView(Context context) {
@@ -432,6 +437,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
     /**
      * 创建替换View
+     *
      * @param originalView
      */
     private void replaceView(View originalView) {
@@ -440,11 +446,11 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
         }
         FrameLayout frameLayout = (FrameLayout) super.getChildAt(0);
         LinearLayout linearLayout = (LinearLayout) frameLayout.getChildAt(0);
-        if (mViewPair != null){
+        if (mViewPair != null) {
             frameLayout.removeView(mViewPair.second);
             int i = linearLayout.indexOfChild(mViewPair.first);
             linearLayout.removeView(mViewPair.first);
-            linearLayout.addView(mViewPair.second,i);
+            linearLayout.addView(mViewPair.second, i);
             mViewPair = null;
         }
         View replaceView = new View(originalView.getContext());
@@ -461,11 +467,51 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
     /**
      * 设置粘性View
+     *
      * @param originalView
      */
     public void setStickView(View originalView) {
         replaceView(originalView);
         requestLayout();
+    }
+
+    /**
+     * 是否可以滑动到最后一个控件的顶部
+     * @param scrollToEnd
+     */
+    public void canScrollToEndViewTop(boolean scrollToEnd) {
+        mScrollToEnd = scrollToEnd;
+    }
+
+    /**
+     * 直接滑动到view的顶部
+     * @param view
+     */
+    public void scrollToView(View view) {
+        int indexView = indexOfChild(view);
+        if (indexView == -1) {
+            throw new IllegalArgumentException("StickLayout has no the child: " + view);
+        }
+        int top = view.getTop();
+        if (mViewPair == null) {
+            scrollTo(0, top);
+        }else {
+            int indexStick = indexOfChild(mViewPair.first);
+            if (indexView <= indexStick) {
+                scrollTo(0, top);
+            }else {
+                scrollTo(0,top - mViewPair.first.getHeight());
+            }
+        }
+    }
+
+    /**
+     * 直接滑动到view的顶部
+     * @param index
+     */
+    public void scrollToView(int index) {
+        View childIndex = getChildIndex(index);
+        scrollToView(childIndex);
     }
 
     @Override
@@ -506,6 +552,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
     /**
      * 根据索引获取View
+     *
      * @param index 索引
      * @return
      */
@@ -520,6 +567,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
 
     /**
      * 获取子控件个数
+     *
      * @return
      */
     public int getChildCounter() {
@@ -1132,7 +1180,15 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
         int scrollRange = 0;
         if (getChildCount() > 0) {
             View child = super.getChildAt(0);
+            View endView = getChildIndex(getChildCounter() - 1);
             scrollRange = Math.max(0, child.getHeight() - (getHeight() - getPaddingBottom() - getPaddingTop()));
+            if (mScrollToEnd) {
+                if (mViewPair == null) {
+                    scrollRange = Math.max(0, child.getHeight() + getPaddingBottom() + getPaddingTop() - endView.getHeight());
+                }else {
+                    scrollRange = Math.max(0, child.getHeight() + getPaddingBottom() + getPaddingTop() - endView.getHeight() - mViewPair.first.getHeight());
+                }
+            }
         }
         return scrollRange;
     }
@@ -1908,6 +1964,11 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
             View child = super.getChildAt(0);
             x = clamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth());
             y = clamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight());
+            if (mScrollToEnd) {
+                if (y == child.getHeight() - (getHeight() - getPaddingBottom() - getPaddingTop())) {
+                    y = getScrollRange();
+                }
+            }
             if (x != getScrollX() || y != getScrollY()) {
                 super.scrollTo(x, y);
             }
@@ -2122,7 +2183,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        mLayoutParamsArray.put(mChildCount,layoutParams);
+        mLayoutParamsArray.put(mChildCount, layoutParams);
         mChildCount++;
         return layoutParams;
     }
@@ -2130,7 +2191,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         LayoutParams layoutParams = new LayoutParams(getContext(), attrs);
-        mLayoutParamsArray.put(mChildCount,layoutParams);
+        mLayoutParamsArray.put(mChildCount, layoutParams);
         mChildCount++;
         return layoutParams;
     }
@@ -2139,22 +2200,22 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp) {
         if (lp instanceof LayoutParams) {
             LayoutParams layoutParams = new LayoutParams((LayoutParams) lp);
-            mLayoutParamsArray.put(mChildCount,layoutParams);
+            mLayoutParamsArray.put(mChildCount, layoutParams);
             mChildCount++;
             return layoutParams;
         } else if (lp instanceof MarginLayoutParams) {
             LayoutParams layoutParams = new LayoutParams((MarginLayoutParams) lp);
-            mLayoutParamsArray.put(mChildCount,layoutParams);
+            mLayoutParamsArray.put(mChildCount, layoutParams);
             mChildCount++;
             return layoutParams;
         }
         LayoutParams layoutParams = new LayoutParams(lp);
-        mLayoutParamsArray.put(mChildCount,layoutParams);
+        mLayoutParamsArray.put(mChildCount, layoutParams);
         mChildCount++;
         return layoutParams;
     }
 
-    public static class LayoutParams extends FrameLayout.LayoutParams{
+    public static class LayoutParams extends FrameLayout.LayoutParams {
 
         private boolean mStick;
 

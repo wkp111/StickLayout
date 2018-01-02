@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StickLayout_Layout">
+        <!--是否粘性停留-->
         <attr name="wkp_stick" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="StickLayout">
+        <!--是否开启滑动到最后一个控件的顶部，默认不开启-->
+        <attr name="wkp_canScrollToEndViewTop" format="boolean"/>
     </declare-styleable>
 </resources>
