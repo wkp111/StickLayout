@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+        <!--app:wkp_canScrollToEndViewTop="true"-->
     <com.wkp.sticklayout_lib.widget.StickLayout
         android:id="@+id/sl"
-        app:wkp_canScrollToEndViewTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
