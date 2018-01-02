@@ -2,14 +2,15 @@
 粘性控件，其任意一个子控件都可滑动停留，无论是View，还是ViewGroup；用该控件可以轻松实现支付宝"全部应用"界面。
 ## 演示图
 ![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout.gif "演示图")
-![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout1.gif "演示图1")<br/>
-Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有。
+![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout1.gif "演示图1")
+![DragGridView](https://github.com/wkp111/StickLayout/blob/master/StickLayout2.gif "演示图2")<br/>
+Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有；图3为设置滑动改变监听。
 ## Gradle集成
 ```groovy
 dependencies{
-      compile 'com.wkp:StickLayout:1.0.3'
+      compile 'com.wkp:StickLayout:1.0.4'
       //Android Studio3.0+可用以下方式
-      //implementation 'com.wkp:StickLayout:1.0.3'
+      //implementation 'com.wkp:StickLayout:1.0.4'
 }
 ```
 Note：可能存在Jcenter还在审核阶段，这时会集成失败！
@@ -162,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     private View mTv3;
     private View mTv7;
     private View mTv4;
+    private int currentPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,26 +174,33 @@ public class MainActivity extends AppCompatActivity {
         mTv3 = findViewById(R.id.tv3);
         mTv4 = findViewById(R.id.tv4);
         mTv7 = findViewById(R.id.tv7);
-//        mSl.setStickView(findViewById(R.id.tv2));
+//        mSl.setStickView(findViewById(R.id.tv2)); //设置粘性控件
 //        mSl.setStickView(findViewById(R.id.tv3));
-//        mSl.canScrollToEndViewTop(true);
+//        mSl.canScrollToEndViewTop(true);      //设置是否开启最后控件滑动到顶部
+        //设置滑动改变监听（一滑动就会有回调）
+        mSl.setOnScrollChangeListener(new StickLayout.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(StickLayout v, View currentView, int position, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //直到当前控件改变在做事情
+                if (currentPosition != position) {
+                    Toast.makeText(v.getContext(), ((TextView) currentView).getText().toString(), Toast.LENGTH_SHORT).show();
+                    currentPosition = position;
+                }
+            }
+        });
     }
 
     public void addView(View view) {
         TextView textView = new TextView(view.getContext());
         textView.setGravity(Gravity.CENTER);
-        textView.setPadding(10,10,10,10);
+        textView.setPadding(10, 10, 10, 10);
         textView.setText("新条目");
-        mSl.addView(textView,0);
+        mSl.addView(textView, 0);
     }
 
-    public void click(View view) {
-        Toast.makeText(this, "第1行", Toast.LENGTH_SHORT).show();
-    }
-
-    public void scrollTo(View view) {
-        //滑动到指定子控件
-        mSl.scrollToView(mTv2);
+    public void scrollTo2(View view) {
+        //滑动到指定子控件
+        mSl.scrollToView(mTv2);
     }
 
     public void scrollTo3(View view) {
@@ -206,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
         mSl.scrollToView(mTv7);
     }
 }
-
 ```
 Note：还有其他API请根据需要自行参考！ 
 ## 寄语
@@ -218,6 +226,8 @@ QQ邮箱：1535514884@qq.com<br/>
 Gmail邮箱：wkp15889686524@gmail.com<br/>
 
 ## 版本更新
+* v1.0.4<br/>
+新增滑动改变监听，主要为解决滑动过程中做一些联动操作<br/><br/>
 * v1.0.3<br/>
 新增滑动到指定子控件API<br/><br/>
 * v1.0.1<br/>
