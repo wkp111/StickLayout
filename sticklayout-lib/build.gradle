@@ -11,8 +11,8 @@ android {
 //        applicationId "com.wkp.sticklayout_lib"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.0.4"
+        versionCode 5
+        versionName "1.0.5"
 
     }
 
@@ -28,14 +28,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
 }
 
 publish {
     userOrg = 'wkp'
     groupId = 'com.wkp'
     artifactId = 'StickLayout'
-    publishVersion = '1.0.4'
+    publishVersion = '1.0.5'
     desc = 'a library to create a stickable layout'
     website = 'https://github.com/wkp111/StickLayout'
 }

@@ -73,6 +73,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     private SparseArray<LayoutParams> mLayoutParamsArray = new SparseArray<>();
     private int mChildCount;
     private boolean mScrollToEnd;
+    private int mCurrentTop;
 
     /**
      * Interface definition for a callback to be invoked when the scroll
@@ -659,6 +660,7 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
+        mCurrentTop = t;
         if (mViewPair != null) {
             View view = mViewPair.second;
             if (t >= mCrisisHeight) {
@@ -1880,7 +1882,12 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
         super.onLayout(changed, l, t, r, b);
         if (mViewPair != null) {
             View first = mViewPair.first;
-            mViewPair.second.layout(first.getLeft(), first.getTop(), first.getRight(), first.getBottom());
+            View view = mViewPair.second;
+            if (mCurrentTop >= mCrisisHeight && mCrisisHeight != 0) {
+                view.layout(first.getLeft(), mCurrentTop, first.getRight(), mCurrentTop + view.getHeight());
+            } else {
+                view.layout(first.getLeft(), first.getTop(), first.getRight(), first.getBottom());
+            }
             LinearLayout linearLayout = (LinearLayout) ((FrameLayout) super.getChildAt(0)).getChildAt(0);
             int index = linearLayout.indexOfChild(first);
             mCrisisHeight = 0;
@@ -1905,7 +1912,6 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
             final int childHeight = (getChildCount() > 0) ? super.getChildAt(0).getMeasuredHeight() : 0;
             final int scrollRange = Math.max(0,
                     childHeight - (b - t - getPaddingBottom() - getPaddingTop()));
-
             // Don't forget to clamp
             if (getScrollY() > scrollRange) {
                 scrollTo(getScrollX(), scrollRange);
@@ -1913,7 +1919,6 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
                 scrollTo(getScrollX(), 0);
             }
         }
-
         // Calling this with the present values causes it to re-claim them
         scrollTo(getScrollX(), getScrollY());
         mIsLaidOut = true;
