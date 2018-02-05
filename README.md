@@ -8,9 +8,9 @@ Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有；图3为�
 ## Gradle集成
 ```groovy
 dependencies{
-      compile 'com.wkp:StickLayout:1.0.4'
+      compile 'com.wkp:StickLayout:1.0.5'
       //Android Studio3.0+可用以下方式
-      //implementation 'com.wkp:StickLayout:1.0.4'
+      //implementation 'com.wkp:StickLayout:1.0.5'
 }
 
 //如不愿意等待，请加上我的maven仓库地址
