@@ -12,6 +12,9 @@ dependencies{
       //Android Studio3.0+可用以下方式
       //implementation 'com.wkp:StickLayout:1.0.4'
 }
+
+//如不愿意等待，请加上我的maven仓库地址
+maven { url "https://dl.bintray.com/wkp/maven" }
 ```
 Note：可能存在Jcenter还在审核阶段，这时会集成失败！注意SDK版本targetSdkVersion >= 26.
 ## 使用详解
