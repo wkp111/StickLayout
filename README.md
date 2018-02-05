@@ -13,13 +13,13 @@ dependencies{
       //implementation 'com.wkp:StickLayout:1.0.4'
 }
 ```
-Note：可能存在Jcenter还在审核阶段，这时会集成失败！
+Note：可能存在Jcenter还在审核阶段，这时会集成失败！注意SDK版本targetSdkVersion >= 26.
 ## 使用详解
 > 属性讲解
 ```xml
         <!--是否粘性停留(用于直接子控件)-->
         <attr name="wkp_stick" format="boolean"/>
-        <!--是否开启滑动到最后一个控件的顶部，默认不开启(用于控件本身)-->
+        <!--是否开启滑动到最后一个控件的顶部，默认不开启(用于控件本身)，注意最后一个子控件如果为条目控件时，如ListView，请不要开启-->
         <attr name="wkp_canScrollToEndViewTop" format="boolean"/>
 ```
 Note：每个属性都有对应的java设置代码！
@@ -153,7 +153,7 @@ Note：每个属性都有对应的java设置代码！
 </LinearLayout>
 
 ```
-Note：ScrollView嵌套StickLayout时事件被拦截，无效果！
+Note：ScrollView嵌套StickLayout时事件被拦截，无效果！StickLayout嵌套如ListView的条目控件时会只显示第一行，注意解决！
 > 代码示例
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -226,6 +226,9 @@ QQ邮箱：1535514884@qq.com<br/>
 Gmail邮箱：wkp15889686524@gmail.com<br/>
 
 ## 版本更新
+* v1.0.5<br/>
+修复悬停子控件在悬停时触发onLayout方法导致的悬停子控件消失的BUG。<br/>
+感谢<a href="https://github.com/Zero-Crazy">Zero-Crazy</a>的使用反馈。</br><br/>
 * v1.0.4<br/>
 新增滑动改变监听，主要为解决滑动过程中做一些联动操作<br/><br/>
 * v1.0.3<br/>
