@@ -8,9 +8,9 @@ Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有；图3为�
 ## Gradle集成
 ```groovy
 dependencies{
-      compile 'com.wkp:StickLayout:1.0.5'
+      compile 'com.wkp:StickLayout:1.0.6'
       //Android Studio3.0+可用以下方式
-      //implementation 'com.wkp:StickLayout:1.0.5'
+      //implementation 'com.wkp:StickLayout:1.0.6'
 }
 
 //如不愿意等待，请加上我的maven仓库地址
@@ -229,6 +229,8 @@ QQ邮箱：1535514884@qq.com<br/>
 Gmail邮箱：wkp15889686524@gmail.com<br/>
 
 ## 版本更新
+* v1.0.6<br/>
+修复悬停控件高度设置wrap_content时无高度BUG。<br/></br>
 * v1.0.5<br/>
 修复悬停子控件在悬停时触发onLayout方法导致的悬停子控件消失的BUG。<br/>
 感谢<a href="https://github.com/Zero-Crazy">Zero-Crazy</a>的使用反馈。</br><br/>
