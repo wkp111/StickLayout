@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/StickLayout.iml" filepath="$PROJECT_DIR$/StickLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/StickLayout.iml" filepath="$PROJECT_DIR$/.idea/StickLayout.iml" />
+      <module fileurl="file://E:\AndroidProject\StickLayout\StickLayout.iml" filepath="E:\AndroidProject\StickLayout\StickLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\AndroidProject\StickLayout\app\app.iml" filepath="E:\AndroidProject\StickLayout\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sticklayout-lib/sticklayout-lib.iml" filepath="$PROJECT_DIR$/sticklayout-lib/sticklayout-lib.iml" />
+      <module fileurl="file://E:\AndroidProject\StickLayout\sticklayout-lib\sticklayout-lib.iml" filepath="E:\AndroidProject\StickLayout\sticklayout-lib\sticklayout-lib.iml" />
     </modules>
   </component>
 </project>

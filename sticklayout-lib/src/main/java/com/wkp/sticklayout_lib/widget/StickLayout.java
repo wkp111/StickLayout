@@ -720,6 +720,13 @@ public class StickLayout extends FrameLayout implements NestedScrollingParent,
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //确定替代控件的大小
+        View replaceView = mViewPair.first;
+        View originalView = mViewPair.second;
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) replaceView.getLayoutParams();
+        params.width = originalView.getMeasuredWidth();
+        params.height = originalView.getMeasuredHeight();
+        replaceView.setLayoutParams(params);
 
         if (!mFillViewport) {
             return;
