@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wkp.sticklayout_lib.widget.StickLayout;
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onScrollChange(StickLayout v, View currentView, int position, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 //直到当前控件改变在做事情
                 if (currentPosition != position && position <= 7) {
-                    Toast.makeText(v.getContext(), ((TextView) currentView).getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(v.getContext(), ((TextView) currentView).getText().toString(), Toast.LENGTH_SHORT).show();
                     currentPosition = position;
                 }
             }

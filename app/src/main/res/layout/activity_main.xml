@@ -29,8 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
 
+            <!--app:wkp_stick="true"-->
         <LinearLayout
-            app:wkp_stick="true"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
