@@ -8,9 +8,9 @@ Note：图1为设置属性wkp_canScrollToEndViewTop=true，图2没有；图3为�
 ## Gradle集成
 ```groovy
 dependencies{
-      compile 'com.wkp:StickLayout:1.0.6'
+      compile 'com.wkp:StickLayout:1.0.7'
       //Android Studio3.0+可用以下方式
-      //implementation 'com.wkp:StickLayout:1.0.6'
+      //implementation 'com.wkp:StickLayout:1.0.7'
 }
 
 //如不愿意等待，请加上我的maven仓库地址
@@ -229,6 +229,8 @@ QQ邮箱：1535514884@qq.com<br/>
 Gmail邮箱：wkp15889686524@gmail.com<br/>
 
 ## 版本更新
+* v1.0.7<br/>
+修复crash：当所有子控件均未设置wkp_stick属性时，使用pair导致空指针。<br/></br>
 * v1.0.6<br/>
 修复悬停控件高度设置wrap_content时无高度BUG。<br/></br>
 * v1.0.5<br/>
